@@ -126,7 +126,7 @@ export default function Sidebar() {
               O
             </div>
             <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
-              Okane
+              Okane <span style={{ fontWeight: 400, opacity: 0.5 }}>お金</span>
             </span>
           </div>
           <ThemeToggle />

@@ -1,10 +1,12 @@
 <div align="center">
 
-# Okane
+# Okane お金
 
 **Gestionnaire de finances personnelles — open source, local-first, sans serveur.**
 
 Vos données restent dans votre navigateur. Aucun compte, aucune inscription, aucun tracking.
+
+[![Voir la démo](https://img.shields.io/badge/Voir_la_démo-4F46E5?style=for-the-badge&logo=github&logoColor=white)](https://imenemedjaoui.github.io/okane-personal-finance/)
 
 [Fonctionnalités](#fonctionnalités) · [Captures d'écran](#captures-décran) · [Installation](#installation) · [Stack technique](#stack-technique) · [Architecture](#architecture-des-données) · [Licence](#licence)
 
