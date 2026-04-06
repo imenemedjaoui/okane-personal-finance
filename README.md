@@ -1,36 +1,152 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# Okane
 
-First, run the development server:
+**Gestionnaire de finances personnelles — open source, local-first, sans serveur.**
+
+Vos données restent dans votre navigateur. Aucun compte, aucune inscription, aucun tracking.
+
+[Fonctionnalités](#fonctionnalités) · [Captures d'écran](#captures-décran) · [Installation](#installation) · [Stack technique](#stack-technique) · [Architecture](#architecture-des-données) · [Licence](#licence)
+
+</div>
+
+---
+
+## Fonctionnalités
+
+- **Multi-comptes & multi-devises** — EUR, USD, GBP, MAD, JPY, CHF, CAD, TND et plus
+- **Transactions complètes** — Dépenses, revenus et transferts entre comptes avec modification et suppression
+- **Import CSV** — Importez vos relevés bancaires avec mapping de colonnes intelligent et auto-détection des champs
+- **Export CSV / JSON** — Exportez toutes vos données en un clic
+- **Catégorisation automatique** — Les transactions importées sont catégorisées par mots-clés configurables
+- **40+ catégories prédéfinies** — Alimentation, Transport, Logement, Santé, Loisirs, etc.
+- **Transactions récurrentes** — Programmez des dépenses et revenus automatiques (quotidien, hebdomadaire, mensuel, trimestriel, semestriel, annuel)
+- **Budgets mensuels** — Définissez des plafonds par catégorie avec barres de progression et alertes de dépassement
+- **Dashboard riche** — 6 visualisations interactives : tendance mensuelle, répartition par catégorie (donut), dépenses journalières, taux d'épargne, évolution du solde, suivi des budgets
+- **Thème clair / sombre** — Bascule instantanée avec transitions fluides
+- **Responsive** — Interface adaptée desktop et mobile avec navigation bottom bar
+- **Mode démo** — Données d'exemple pour tester l'application en un clic
+- **100% local** — Stockage IndexedDB, aucune donnée ne quitte votre navigateur
+
+## Captures d'écran
+
+### Dashboard
+
+<div align="center">
+
+![Dashboard — thème clair](./public/screenshots/dashboard.png)
+
+</div>
+
+### Dashboard — thème sombre
+
+<div align="center">
+
+![Dashboard — thème sombre](./public/screenshots/dashboard-dark.png)
+
+</div>
+
+### Transactions
+
+<div align="center">
+
+![Liste des transactions avec recherche et filtres](./public/screenshots/transactions.png)
+
+</div>
+
+### Comptes
+
+<div align="center">
+
+![Gestion multi-comptes et multi-devises](./public/screenshots/accounts.png)
+
+</div>
+
+### Budgets
+
+<div align="center">
+
+![Suivi des budgets mensuels par catégorie](./public/screenshots/budgets.png)
+
+</div>
+
+### Catégories
+
+<div align="center">
+
+![40+ catégories avec icônes et mots-clés](./public/screenshots/categories.png)
+
+</div>
+
+### Transactions récurrentes
+
+<div align="center">
+
+![Programmation de dépenses et revenus automatiques](./public/screenshots/recurring.png)
+
+</div>
+
+### Import CSV
+
+<div align="center">
+
+![Import de relevés bancaires avec mapping de colonnes](./public/screenshots/import.png)
+
+</div>
+
+## Installation
 
 ```bash
+git clone https://github.com/imenmusic/okane.git
+cd okane
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrir [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> Cliquez sur **"Charger la démo"** dans la bannière en haut pour explorer avec des données d'exemple.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Stack technique
 
-## Learn More
+| Technologie | Rôle |
+|---|---|
+| [Next.js 16](https://nextjs.org/) | Framework React (App Router, Turbopack) |
+| [React 19](https://react.dev/) | UI |
+| [Tailwind CSS v4](https://tailwindcss.com/) | Styles utilitaires |
+| [Dexie.js](https://dexie.org/) | Wrapper IndexedDB (stockage local) |
+| [Recharts](https://recharts.org/) | Graphiques (Area, Bar, Pie, RadialBar) |
+| [PapaParse](https://www.papaparse.com/) | Parsing CSV |
+| TypeScript | Typage statique |
 
-To learn more about Next.js, take a look at the following resources:
+## Architecture des données
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Aucun serveur requis. Toutes les données sont stockées localement dans IndexedDB via Dexie.js :
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+accounts             Comptes bancaires (nom, devise, solde, icône, couleur)
+transactions         Dépenses, revenus, transferts (montant, date, catégorie, notes)
+categories           Catégories avec icônes, couleurs et mots-clés d'auto-catégorisation
+budgets              Budgets mensuels par catégorie
+recurringTransactions  Transactions programmées (fréquence, dates, statut actif/pause)
+settings             Préférences utilisateur (devise, thème, locale)
+```
 
-## Deploy on Vercel
+## Déploiement
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+L'application est statique et peut être déployée sur n'importe quel hébergeur :
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Vercel** (recommandé) :
+1. Pusher le repo sur GitHub
+2. Connecter à [vercel.com](https://vercel.com)
+3. Déployer en un clic
+
+**Autres options** : Netlify, Cloudflare Pages, GitHub Pages (avec export statique).
+
+## Auteure
+
+**Imène MEDJAOUI**
+
+## Licence
+
+MIT
