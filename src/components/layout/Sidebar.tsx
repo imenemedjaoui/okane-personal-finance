@@ -31,6 +31,10 @@ const NAV_ITEMS = [
     icon: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="7.5"/><path d="M9 4.5v9M11.25 6.75c0-.83-.67-1.5-1.5-1.5H8.25a1.5 1.5 0 0 0 0 3h1.5a1.5 1.5 0 0 1 0 3H7.5"/></svg>,
   },
   {
+    href: '/wishlist', label: 'Souhaits',
+    icon: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 3.6c-1.5-2.1-4.5-2.7-6.3-.9S1.2 7.2 3 9l6 6 6-6c1.8-1.8 1.8-4.2 0-6s-4.8-1.2-6 .6z"/></svg>,
+  },
+  {
     href: '/import', label: 'Import',
     icon: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12.75v1.5a1.5 1.5 0 0 0 1.5 1.5h9a1.5 1.5 0 0 0 1.5-1.5v-1.5M9 2.25v9M5.25 7.5L9 11.25l3.75-3.75"/></svg>,
   },

@@ -4,12 +4,13 @@ import { DEFAULT_CATEGORIES } from '@/types';
 
 export async function loadDemoData() {
   // Clear existing data
-  await db.transaction('rw', [db.accounts, db.transactions, db.categories, db.budgets, db.recurringTransactions], async () => {
+  await db.transaction('rw', [db.accounts, db.transactions, db.categories, db.budgets, db.recurringTransactions, db.wishlistItems], async () => {
     await db.accounts.clear();
     await db.transactions.clear();
     await db.categories.clear();
     await db.budgets.clear();
     await db.recurringTransactions.clear();
+    await db.wishlistItems.clear();
   });
 
   // Create categories
@@ -91,6 +92,13 @@ export async function loadDemoData() {
   }));
   await db.transactions.bulkAdd(txsToAdd);
 
+  // Create wishlist items
+  await db.wishlistItems.bulkAdd([
+    { id: generateId(), name: 'AirPods Pro', price: 279, currency: 'EUR', categoryId: getCatId('Électronique'), priority: 'high' as const, notes: 'Modèle avec USB-C', purchased: false, createdAt: new Date() },
+    { id: generateId(), name: 'Abonnement salle de sport', price: 29.99, currency: 'EUR', categoryId: getCatId('Sport & Fitness'), priority: 'medium' as const, notes: 'Basic Fit - forfait mensuel', purchased: false, createdAt: new Date() },
+    { id: generateId(), name: 'Livre "Clean Code"', price: 35, currency: 'EUR', categoryId: getCatId('Livres & Presse'), priority: 'low' as const, purchased: false, createdAt: new Date() },
+  ]);
+
   // Create budgets
   await db.budgets.bulkAdd([
     { id: generateId(), categoryId: getCatId('Alimentation'), amount: 300, currency: 'EUR', period: 'monthly' as const, startDate: new Date() },
@@ -102,12 +110,13 @@ export async function loadDemoData() {
 }
 
 export async function clearAllData() {
-  await db.transaction('rw', [db.accounts, db.transactions, db.categories, db.budgets, db.settings, db.recurringTransactions], async () => {
+  await db.transaction('rw', [db.accounts, db.transactions, db.categories, db.budgets, db.settings, db.recurringTransactions, db.wishlistItems], async () => {
     await db.accounts.clear();
     await db.transactions.clear();
     await db.categories.clear();
     await db.budgets.clear();
     await db.settings.clear();
     await db.recurringTransactions.clear();
+    await db.wishlistItems.clear();
   });
 }

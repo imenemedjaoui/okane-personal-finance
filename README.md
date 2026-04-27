@@ -23,6 +23,7 @@ Vos données restent dans votre navigateur. Aucun compte, aucune inscription, au
 - **Catégorisation automatique** — Les transactions importées sont catégorisées par mots-clés configurables
 - **40+ catégories prédéfinies** — Alimentation, Transport, Logement, Santé, Loisirs, etc.
 - **Transactions récurrentes** — Programmez des dépenses et revenus automatiques (quotidien, hebdomadaire, mensuel, trimestriel, semestriel, annuel)
+- **Liste de souhaits** — Ajoutez des objets ou services à acheter avec prix, catégorie et priorité, puis confirmez l'achat sur un de vos comptes
 - **Budgets mensuels** — Définissez des plafonds par catégorie avec barres de progression et alertes de dépassement
 - **Dashboard riche** — 6 visualisations interactives : tendance mensuelle, répartition par catégorie (donut), dépenses journalières, taux d'épargne, évolution du solde, suivi des budgets
 - **Thème clair / sombre** — Bascule instantanée avec transitions fluides
@@ -131,6 +132,7 @@ transactions         Dépenses, revenus, transferts (montant, date, catégorie, 
 categories           Catégories avec icônes, couleurs et mots-clés d'auto-catégorisation
 budgets              Budgets mensuels par catégorie
 recurringTransactions  Transactions programmées (fréquence, dates, statut actif/pause)
+wishlistItems        Liste de souhaits (nom, prix, catégorie, priorité, statut d'achat)
 settings             Préférences utilisateur (devise, thème, locale)
 ```
 

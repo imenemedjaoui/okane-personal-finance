@@ -106,6 +106,29 @@ export const CURRENCIES = [
   { code: 'BRL', symbol: 'R$', name: 'Réal Brésilien' },
 ] as const;
 
+export type WishlistPriority = 'low' | 'medium' | 'high';
+
+export const PRIORITY_LABELS: Record<WishlistPriority, string> = {
+  low: 'Faible',
+  medium: 'Moyenne',
+  high: 'Haute',
+};
+
+export interface WishlistItem {
+  id: string;
+  name: string;
+  price: number;
+  currency: string;
+  categoryId: string;
+  priority: WishlistPriority;
+  notes?: string;
+  url?: string;
+  purchased: boolean;
+  purchasedAt?: Date;
+  purchasedAccountId?: string;
+  createdAt: Date;
+}
+
 export const DEFAULT_CATEGORIES: Omit<Category, 'id'>[] = [
   // ── Expenses ──
   // Alimentation & boissons

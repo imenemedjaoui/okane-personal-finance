@@ -3,9 +3,10 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/lib/db';
 import { generateId } from '@/lib/utils';
-import type { Account, Transaction, Category, Budget, AppSettings, RecurringTransaction } from '@/types';
+import type { Account, Transaction, Category, Budget, AppSettings, RecurringTransaction, WishlistItem } from '@/types';
 import { DEFAULT_CATEGORIES } from '@/types';
 import type { RecurringFrequency } from '@/types';
+import type { WishlistPriority } from '@/types';
 import { useCallback, useEffect, useState } from 'react';
 
 export function useAccounts() {
@@ -273,6 +274,69 @@ export function useRecurringTransactions() {
   }, []);
 
   return { recurrings, addRecurring, updateRecurring, deleteRecurring, processRecurrings };
+}
+
+/* ─── Wishlist ─── */
+
+export function useWishlist() {
+  const items = useLiveQuery(() => db.wishlistItems.orderBy('createdAt').reverse().toArray()) ?? [];
+
+  const addItem = useCallback(async (data: Omit<WishlistItem, 'id' | 'createdAt' | 'purchased'>) => {
+    const id = generateId();
+    await db.wishlistItems.add({
+      ...data,
+      id,
+      purchased: false,
+      createdAt: new Date(),
+    });
+    return id;
+  }, []);
+
+  const updateItem = useCallback(async (id: string, data: Partial<WishlistItem>) => {
+    await db.wishlistItems.update(id, data);
+  }, []);
+
+  const deleteItem = useCallback(async (id: string) => {
+    await db.wishlistItems.delete(id);
+  }, []);
+
+  const purchaseItem = useCallback(async (itemId: string, accountId: string) => {
+    const item = await db.wishlistItems.get(itemId);
+    if (!item) return;
+
+    await db.transaction('rw', [db.wishlistItems, db.transactions, db.accounts], async () => {
+      // Mark as purchased
+      await db.wishlistItems.update(itemId, {
+        purchased: true,
+        purchasedAt: new Date(),
+        purchasedAccountId: accountId,
+      });
+
+      // Create an expense transaction
+      const txId = generateId();
+      await db.transactions.add({
+        id: txId,
+        accountId,
+        type: 'expense',
+        amount: item.price,
+        currency: item.currency,
+        category: item.categoryId,
+        description: item.name,
+        date: new Date(),
+        notes: 'Achat depuis la liste de souhaits',
+        categorySource: 'manual',
+        createdAt: new Date(),
+      });
+
+      // Update account balance
+      const account = await db.accounts.get(accountId);
+      if (account) {
+        await db.accounts.update(accountId, { balance: account.balance - item.price });
+      }
+    });
+  }, []);
+
+  return { items, addItem, updateItem, deleteItem, purchaseItem };
 }
 
 export function useSettings() {
